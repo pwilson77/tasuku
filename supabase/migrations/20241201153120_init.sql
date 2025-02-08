@@ -6,7 +6,7 @@ CREATE TABLE "user" (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4 (),
     email VARCHAR(120) UNIQUE NOT NULL,
     user_type user_type NOT NULL,
-    jobs_completed INTEGER DEFAULT 0,
+    jobs_completed INTEGER DEFAULT 0
 );
 
 CREATE TABLE template (
@@ -22,9 +22,9 @@ CREATE TABLE job (
     title VARCHAR(100) NOT NULL,
     created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     checklist JSONB NOT NULL,
-    completed_by INTEGER REFERENCES "user" (id),
+    completed_by UUID REFERENCES "user" (id),
     completed_at TIMESTAMP WITHOUT TIME ZONE,
-    template_id UUID NOT NULL REFERENCES template (template_id)
+    template_id VARCHAR(100) NOT NULL REFERENCES template (template_id)
 );
 
 CREATE INDEX idx_template_created_by ON template (created_by);
